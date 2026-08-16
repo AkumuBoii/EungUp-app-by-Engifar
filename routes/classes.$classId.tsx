@@ -1,10 +1,10 @@
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Swords, Users, ListChecks, Trophy, Flame } from "lucide-react";
-import { getClassDashboard, createBattle, respondToBattle, resolveBattle } from "@/lib/memestudy.functions";
+import { Flame } from "lucide-react";
+import { getClassDashboard, respondToBattle, resolveBattle } from "@/lib/memestudy.functions";
 import { AppShell } from "@/components/AppShell";
 import { Mascot } from "@/components/Mascot";
 import { useAuth } from "@/hooks/useAuth";
@@ -53,7 +53,6 @@ function ClassHub() {
   const myId = session?.user.id ?? null;
 
   const load = useServerFn(getClassDashboard);
-  const challenge = useServerFn(createBattle);
   const respond = useServerFn(respondToBattle);
   const resolve = useServerFn(resolveBattle);
 
@@ -67,24 +66,7 @@ function ClassHub() {
     setActiveClassId(classId);
   }, [classId]);
 
-  const [opponentId, setOpponentId] = useState("");
-  const [targetMin, setTargetMin] = useState(60);
-  const [stake, setStake] = useState(50);
-
   const refresh = () => qc.invalidateQueries({ queryKey: ["class-dashboard", classId] });
-
-  const battleMut = useMutation({
-    mutationFn: () =>
-      challenge({
-        data: { classId, opponentId, mode: "time", targetSec: targetMin * 60, stakeWorms: stake },
-      }),
-    onSuccess: () => {
-      setOpponentId("");
-      refresh();
-      toast.success("Challenge sent. อึ่ง is cracking knuckles.");
-    },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Could not challenge"),
-  });
 
   const respondMut = useMutation({
     mutationFn: (v: { battleId: string; accept: boolean }) => respond({ data: v }),
@@ -102,9 +84,6 @@ function ClassHub() {
     onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
   });
 
-  if (hub.isLoading) {
-    return <p className="ink-card p-8 text-center font-bold">Loading class…</p>;
-  }
   if (hub.error) {
     return (
       <div className="ink-card p-8 text-center">
@@ -115,9 +94,13 @@ function ClassHub() {
       </div>
     );
   }
+  if (!hub.data) {
+    return <p className="ink-card p-8 text-center font-bold">Loading class…</p>;
+  }
 
-  const data = hub.data!;
+  const data = hub.data;
   const stats = data.stats;
+
 
   return (
     <div className="space-y-5">
@@ -127,17 +110,6 @@ function ClassHub() {
           <h1 className="font-display text-3xl font-extrabold">{data.klass.name}</h1>
           {data.klass.description && <p className="text-sm font-bold text-muted-foreground">{data.klass.description}</p>}
           <p className="mt-1 text-xs font-extrabold tracking-widest">Invite code: {data.klass.invite_code}</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Link to="/tasks" className="ink-border rounded-xl bg-card px-3 py-2 text-sm font-extrabold">
-            <ListChecks className="mr-1 inline size-4" /> Tasks
-          </Link>
-          <Link to="/feed" className="ink-border rounded-xl bg-card px-3 py-2 text-sm font-extrabold">
-            <Users className="mr-1 inline size-4" /> Feed
-          </Link>
-          <Link to="/leaderboard" className="ink-border rounded-xl bg-card px-3 py-2 text-sm font-extrabold">
-            <Trophy className="mr-1 inline size-4" /> Ranks
-          </Link>
         </div>
       </header>
 
@@ -207,54 +179,6 @@ function ClassHub() {
         </div>
 
         <aside className="space-y-5">
-          <section className="ink-card p-5">
-            <h2 className="font-display text-xl font-extrabold">
-              <Swords className="mr-1 inline size-5" /> Challenge a classmate
-            </h2>
-            <select
-              value={opponentId}
-              onChange={(e) => setOpponentId(e.target.value)}
-              className="ink-border mt-3 w-full rounded-xl bg-card px-3 py-2 font-bold"
-            >
-              <option value="">Pick an opponent</option>
-              {data.members
-                .filter((m) => m.user_id !== myId)
-                .map((m) => (
-                  <option key={m.user_id} value={m.user_id}>
-                    {m.profile?.display_name ?? m.profile?.username ?? "student"}
-                  </option>
-                ))}
-            </select>
-            <div className="mt-2 flex gap-2">
-              <label className="flex-1 text-xs font-extrabold uppercase text-muted-foreground">
-                Minutes
-                <input
-                  type="number"
-                  min={10}
-                  value={targetMin}
-                  onChange={(e) => setTargetMin(Number(e.target.value))}
-                  className="ink-border mt-1 w-full rounded-xl bg-card px-3 py-2 font-bold"
-                />
-              </label>
-              <label className="flex-1 text-xs font-extrabold uppercase text-muted-foreground">
-                Stake 🪱
-                <input
-                  type="number"
-                  min={0}
-                  value={stake}
-                  onChange={(e) => setStake(Number(e.target.value))}
-                  className="ink-border mt-1 w-full rounded-xl bg-card px-3 py-2 font-bold"
-                />
-              </label>
-            </div>
-            <button
-              disabled={!opponentId || battleMut.isPending}
-              onClick={() => battleMut.mutate()}
-              className="ink-border mt-3 w-full rounded-xl bg-primary px-3 py-2 font-extrabold text-primary-foreground disabled:opacity-50"
-            >
-              Send challenge
-            </button>
-          </section>
 
           <section className="ink-card p-5">
             <h2 className="font-display text-xl font-extrabold">Battles</h2>
