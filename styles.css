@@ -1,0 +1,196 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * EungUp design system — mint mascot palette, ink outlines, hand-drawn energy.
+ * All colors are oklch semantic tokens. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-ink: var(--ink);
+  --color-mint: var(--mint);
+  --color-mint-deep: var(--mint-deep);
+  --color-worm: var(--worm);
+  --color-shame: var(--shame);
+  --color-common: var(--common);
+  --color-rare: var(--rare);
+  --color-epic: var(--epic);
+  --color-legendary: var(--legendary);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-display: "Baloo 2", "Noto Sans Thai", system-ui, sans-serif;
+  --font-sans: "Nunito", "Noto Sans Thai", system-ui, sans-serif;
+  --shadow-ink: 4px 4px 0 0 var(--ink);
+  --shadow-ink-sm: 2px 2px 0 0 var(--ink);
+  --shadow-ink-lg: 8px 8px 0 0 var(--ink);
+}
+
+:root {
+  --radius: 1.1rem;
+  --background: oklch(0.985 0.012 110);
+  --foreground: oklch(0.2 0.03 165);
+  --ink: oklch(0.18 0.02 165);
+  --mint: oklch(0.87 0.13 168);
+  --mint-deep: oklch(0.66 0.14 168);
+  --worm: oklch(0.72 0.15 45);
+  --shame: oklch(0.68 0.17 15);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.03 165);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.03 165);
+  --primary: oklch(0.85 0.14 168);
+  --primary-foreground: oklch(0.18 0.02 165);
+  --secondary: oklch(0.96 0.02 150);
+  --secondary-foreground: oklch(0.24 0.03 165);
+  --muted: oklch(0.955 0.014 120);
+  --muted-foreground: oklch(0.48 0.03 165);
+  --accent: oklch(0.93 0.08 100);
+  --accent-foreground: oklch(0.2 0.03 165);
+  --destructive: oklch(0.6 0.21 25);
+  --destructive-foreground: oklch(0.99 0.01 110);
+  --border: oklch(0.18 0.02 165);
+  --input: oklch(0.88 0.02 150);
+  --ring: oklch(0.66 0.14 168);
+  --common: oklch(0.72 0.02 165);
+  --rare: oklch(0.68 0.13 235);
+  --epic: oklch(0.62 0.19 305);
+  --legendary: oklch(0.78 0.16 75);
+  --chart-1: oklch(0.85 0.14 168);
+  --chart-2: oklch(0.72 0.15 45);
+  --chart-3: oklch(0.68 0.13 235);
+  --chart-4: oklch(0.62 0.19 305);
+  --chart-5: oklch(0.78 0.16 75);
+  --sidebar: oklch(0.97 0.02 150);
+  --sidebar-foreground: oklch(0.2 0.03 165);
+  --sidebar-primary: oklch(0.85 0.14 168);
+  --sidebar-primary-foreground: oklch(0.18 0.02 165);
+  --sidebar-accent: oklch(0.93 0.05 150);
+  --sidebar-accent-foreground: oklch(0.2 0.03 165);
+  --sidebar-border: oklch(0.18 0.02 165);
+  --sidebar-ring: oklch(0.66 0.14 168);
+}
+
+.dark {
+  --background: oklch(0.19 0.02 170);
+  --foreground: oklch(0.96 0.02 150);
+  --ink: oklch(0.1 0.01 170);
+  --mint: oklch(0.8 0.13 168);
+  --mint-deep: oklch(0.6 0.13 168);
+  --worm: oklch(0.75 0.14 45);
+  --shame: oklch(0.66 0.16 15);
+  --card: oklch(0.25 0.025 170);
+  --card-foreground: oklch(0.96 0.02 150);
+  --popover: oklch(0.25 0.025 170);
+  --popover-foreground: oklch(0.96 0.02 150);
+  --primary: oklch(0.8 0.13 168);
+  --primary-foreground: oklch(0.16 0.02 170);
+  --secondary: oklch(0.3 0.03 170);
+  --secondary-foreground: oklch(0.96 0.02 150);
+  --muted: oklch(0.29 0.02 170);
+  --muted-foreground: oklch(0.72 0.02 160);
+  --accent: oklch(0.35 0.05 120);
+  --accent-foreground: oklch(0.96 0.02 150);
+  --destructive: oklch(0.62 0.2 25);
+  --destructive-foreground: oklch(0.98 0.01 110);
+  --border: oklch(0.1 0.01 170);
+  --input: oklch(0.34 0.02 170);
+  --ring: oklch(0.6 0.13 168);
+  --common: oklch(0.6 0.02 165);
+  --rare: oklch(0.65 0.13 235);
+  --epic: oklch(0.6 0.18 305);
+  --legendary: oklch(0.75 0.15 75);
+  --sidebar: oklch(0.23 0.025 170);
+  --sidebar-foreground: oklch(0.96 0.02 150);
+  --sidebar-primary: oklch(0.8 0.13 168);
+  --sidebar-primary-foreground: oklch(0.16 0.02 170);
+  --sidebar-accent: oklch(0.3 0.03 170);
+  --sidebar-accent-foreground: oklch(0.96 0.02 150);
+  --sidebar-border: oklch(0.1 0.01 170);
+  --sidebar-ring: oklch(0.6 0.13 168);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility ink-card {
+  border: 3px solid var(--ink);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-card);
+  box-shadow: var(--shadow-ink);
+}
+
+@utility ink-border {
+  border: 3px solid var(--ink);
+}
+
+@utility bounce-hover {
+  transition:
+    transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 160ms ease;
+}
+
+@utility paper {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--ink) 7%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 18px 18px;
+}
