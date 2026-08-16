@@ -2,6 +2,20 @@
 
 This project was built with [Lovable](https://lovable.dev).
 
+## The App
+
+EungUp is a social, gamified study platform targeted for university Engineering students, built around a mint-green bullfrog mascot named อึ่ง (Eung).
+which has these features :
+- **Study sessions** — Focus Mode with stopwatch, countdown, and task-focus timers and completed sessions reward Worms + XP.
+- **Classes** — The main social container. Students create or join classes with invite codes, share tasks, and see class activity.
+- **Tasks & Subjects** — Class-organized homework with due dates, submissions, and help requests.
+- **Social Feed** — Milestones, shame posts, help requests, and battle results.
+- **Leaderboards** — Class rankings.
+- **Battle Mode** — Competitive study challenges where students bet memes and the winner takes the prize.
+- **Gachapon** — Spend Worms to roll for rarity-based collectibles (memes, skins) with Epic pity at 20 and Legendary pity at 50.
+- **Profile Hub** — Manage classes, view statistics, customize character, and adjust settings.
+- **Streaks & Daily Goals** — To encourage consistent studying.
+
 ## Build with Lovable
 
 Open your project in the [Lovable editor](https://lovable.dev) and keep building.
@@ -27,8 +41,7 @@ npm run dev
 - TypeScript
 - React
 - Tailwind CSS
-
-
+  
 
 # Routes
 
